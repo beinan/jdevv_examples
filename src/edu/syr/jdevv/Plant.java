@@ -1,4 +1,4 @@
-package syr.edu.jdevv;
+package edu.syr.jdevv;
 
 
 /* 

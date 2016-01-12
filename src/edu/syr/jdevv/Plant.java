@@ -11,7 +11,7 @@ package edu.syr.jdevv;
 
 
 public class Plant {
-    public static final int THREAD_COUNT = 4;
+    public static final int THREAD_COUNT = 3;
     public static final int[][] WORKER_PATTERN= {
       {1,1,1},{3,0,0},{0,0,3},{0,3,0},
       {0,1,2},{0,2,1},{1,0,2},{1,2,0},{2,1,0},{2,0,1},

@@ -1,10 +1,11 @@
 package edu.syr.jdevv;
+
 /**
  * Created by Chunxu on 2016/3/14.
  */
 public class TrafficLight_MultiThread {
     public void start() {
-    	LightLock lock = new LightLock();
+        LightLock lock = new LightLock();
         (new Thread(new Road2(lock))).start();
         (new Thread(new Road1(lock))).start();
     }
@@ -15,38 +16,39 @@ public class TrafficLight_MultiThread {
     }
 }
 
-class LightLock{
-	private boolean isGreen = false;
-	
-	public boolean isAnyRoadGreen(){
-		return isGreen;
-	}
-	synchronized void lockGreen(){
-		isGreen = true;
-	}
-	
-	synchronized void releaseLock(){
-		isGreen = false;
-		this.notifyAll();
-	}
+class LightLock {
+    private boolean isGreen = false;
+
+    public boolean isAnyRoadGreen() {
+        return isGreen;
+    }
+
+    synchronized void lockGreen() {
+        isGreen = true;
+    }
+
+    synchronized void releaseLock() {
+        isGreen = false;
+        this.notifyAll();
+    }
 }
 
 class Road1 implements Runnable {
     private int redLight;
     private int greenLight;
     private int yellowLight;
-	private LightLock lock;
+    private LightLock lock;
 
     public Road1(LightLock lock) {
 
-    	redLight = 0;
+        redLight = 0;
         greenLight = 0;
         yellowLight = 0;
         this.lock = lock;
     }
 
-	public void red() {
-		lock.releaseLock();
+    public void red() {
+        lock.releaseLock();
         redLight = 1;
         greenLight = 0;
         yellowLight = 0;
@@ -57,20 +59,19 @@ class Road1 implements Runnable {
 
         try {
             Thread.sleep(700);
-        } catch(InterruptedException ex) {
+        } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
     }
 
     public void green() throws InterruptedException {
-    	
-		while(lock.isAnyRoadGreen()){
-			synchronized (lock) {
-				lock.wait();
-			}
-    	}        	
-	
-    	
+
+        while (lock.isAnyRoadGreen()) {
+            synchronized (lock) {
+                lock.wait();
+            }
+        }
+
         redLight = 0;
         greenLight = 1;
         yellowLight = 0;
@@ -81,7 +82,7 @@ class Road1 implements Runnable {
 
         try {
             Thread.sleep(500);
-        } catch(InterruptedException ex) {
+        } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
     }
@@ -97,7 +98,7 @@ class Road1 implements Runnable {
 
         try {
             Thread.sleep(100);
-        } catch(InterruptedException ex) {
+        } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
     }
@@ -106,23 +107,22 @@ class Road1 implements Runnable {
     public void run() {
         for (int i = 0; i < 4; i++) {
             try {
-				green();
-				yellow();
-	            red();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                green();
+                yellow();
+                red();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
     }
 }
-
 
 class Road2 implements Runnable {
     private int redLight;
     private int greenLight;
     private int yellowLight;
-	private LightLock lock;
+    private LightLock lock;
 
     public Road2(LightLock lock) {
         redLight = 0;
@@ -132,7 +132,7 @@ class Road2 implements Runnable {
     }
 
     public void red() {
-    	lock.releaseLock();
+        lock.releaseLock();
         redLight = 1;
         greenLight = 0;
         yellowLight = 0;
@@ -143,18 +143,18 @@ class Road2 implements Runnable {
 
         try {
             Thread.sleep(700);
-        } catch(InterruptedException ex) {
+        } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
     }
 
     public void green() throws InterruptedException {
-    	while(lock.isAnyRoadGreen()){
-    		synchronized (lock) {
-				lock.wait();
-			}
-    	}
-    	lock.lockGreen();
+        while (lock.isAnyRoadGreen()) {
+            synchronized (lock) {
+                lock.wait();
+            }
+        }
+        lock.lockGreen();
         redLight = 0;
         greenLight = 1;
         yellowLight = 0;
@@ -165,7 +165,7 @@ class Road2 implements Runnable {
 
         try {
             Thread.sleep(500);
-        } catch(InterruptedException ex) {
+        } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
     }
@@ -181,7 +181,7 @@ class Road2 implements Runnable {
 
         try {
             Thread.sleep(100);
-        } catch(InterruptedException ex) {
+        } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
     }
@@ -189,18 +189,16 @@ class Road2 implements Runnable {
     @Override
     public void run() {
         for (int i = 0; i < 4; i++) {
-            
+
             try {
-            	red();
-				green();
-				yellow();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            
+                red();
+                green();
+                yellow();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
         }
     }
 }
-
-

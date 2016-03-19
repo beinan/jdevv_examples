@@ -52,17 +52,20 @@ class Road1 implements Runnable {
         System.out.println("-------------------------");
 
         try {
-            Thread.sleep(7000);
+            Thread.sleep(700);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
     }
 
     public void green() throws InterruptedException {
-    	while(lock.isGreen){
-    		lock.wait();
-    	}
-    	lock.lockGreen();
+    	
+		while(lock.isGreen){
+			synchronized (lock) {
+				lock.wait();
+			}
+    	}        	
+	
     	
         redLight = 0;
         greenLight = 1;
@@ -73,7 +76,7 @@ class Road1 implements Runnable {
         System.out.println("-------------------------");
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(500);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
@@ -89,7 +92,7 @@ class Road1 implements Runnable {
         System.out.println("-------------------------");
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
@@ -97,7 +100,7 @@ class Road1 implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 4; i++) {
             try {
 				green();
 				yellow();
@@ -135,7 +138,7 @@ class Road2 implements Runnable {
         System.out.println("-------------------------");
 
         try {
-            Thread.sleep(7000);
+            Thread.sleep(700);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
@@ -143,7 +146,9 @@ class Road2 implements Runnable {
 
     public void green() throws InterruptedException {
     	while(lock.isGreen){
-    		lock.wait();
+    		synchronized (lock) {
+				lock.wait();
+			}
     	}
     	lock.lockGreen();
         redLight = 0;
@@ -155,7 +160,7 @@ class Road2 implements Runnable {
         System.out.println("-------------------------");
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(500);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
@@ -171,7 +176,7 @@ class Road2 implements Runnable {
         System.out.println("-------------------------");
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
@@ -179,7 +184,7 @@ class Road2 implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 4; i++) {
             
             try {
             	red();

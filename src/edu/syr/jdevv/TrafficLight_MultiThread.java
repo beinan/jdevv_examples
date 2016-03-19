@@ -16,7 +16,11 @@ public class TrafficLight_MultiThread {
 }
 
 class LightLock{
-	boolean isGreen = false;
+	private boolean isGreen = false;
+	
+	public boolean isAnyRoadGreen(){
+		return isGreen;
+	}
 	synchronized void lockGreen(){
 		isGreen = true;
 	}
@@ -60,7 +64,7 @@ class Road1 implements Runnable {
 
     public void green() throws InterruptedException {
     	
-		while(lock.isGreen){
+		while(lock.isAnyRoadGreen()){
 			synchronized (lock) {
 				lock.wait();
 			}
@@ -145,7 +149,7 @@ class Road2 implements Runnable {
     }
 
     public void green() throws InterruptedException {
-    	while(lock.isGreen){
+    	while(lock.isAnyRoadGreen()){
     		synchronized (lock) {
 				lock.wait();
 			}

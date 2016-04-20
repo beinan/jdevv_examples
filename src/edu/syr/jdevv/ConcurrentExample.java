@@ -80,12 +80,12 @@ class Putter implements Runnable {
             v.push_back(j);
             System.out.println("put " + i +  "  just added value " + j + "  to vec");
             run--;
-            if (v.size() == 10) v.notify();; //The moment the notificaiton is sent, this put thread also releases lock
+            if (v.size() == 10) v.notifyAll();; //The moment the notificaiton is sent, this put thread also releases lock
             //to the waken thread
             }
         }
         synchronized(v){
-            if (v.size() != 10) v.notify();
+            if (v.size() != 10) v.notifyAll();
         }
         //Without this line, the programm will encounter DEADLOCK!!!
     }
@@ -126,7 +126,7 @@ class Getter implements Runnable {
                 System.out.println( " result = " + k + "  by get " + i);
                 v.clear();
                 run--;
-                v.notify();
+                v.notifyAll();
             }
         }
 

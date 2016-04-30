@@ -33,7 +33,7 @@ public class Sorter {
     
     public static void main(String[] args) {
         //Integer[] a = { 4, 3, 7, 11, 2, 6, 5 };
-    	Integer[] a = new Integer[100];
+    	Integer[] a = new Integer[1000];
     	for(int i = 0; i < a.length; i++){
     		a[i] = (int) (1000 * Math.random());
     	}

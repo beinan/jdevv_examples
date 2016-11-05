@@ -19,8 +19,6 @@ public class WordCount {
     
     public static void main(String[] args) throws InterruptedException, IOException, URISyntaxException{
            Thread threads[] = new Thread[THREAD_COUNT];
-//           InputStream is = WordCount.class.getClass().getResourceAsStream("/edu/syr/jdevv/words.txt");
-//           Scanner scaner = new Scanner(is);
            
            
            URI uri = WordCount.class.getClassLoader().getSystemResource("edu/syr/jdevv/words.txt").toURI();

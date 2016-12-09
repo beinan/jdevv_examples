@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class WordCount {
     
-    static final int THREAD_COUNT = 10;
+    static final int THREAD_COUNT = 3;
     int counter = 0;
     List<String> lines = new ArrayList<String>();
     
